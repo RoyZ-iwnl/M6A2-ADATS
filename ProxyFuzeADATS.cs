@@ -94,7 +94,7 @@ namespace M6A2Adats
 
             RaycastHit hit3;
             if (Physics.SphereCast(pos, M6A2_Adats.proxyDistance.Value, live_round.transform.forward, out hit3, 0.1f, 1 << 8))
-                if (hit3.collider.CompareTag("Penetrable"))
+            if (hit3.collider.CompareTag("Penetrable"))
                     Detonate();
 
         }

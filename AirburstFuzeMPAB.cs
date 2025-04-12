@@ -56,7 +56,11 @@ namespace M6A2Adats
             if (prox_ammos.Contains(ammo_type.Name)) return;
             prox_ammos.Add(ammo_type.Name);
         }
-        
+
+        void Update()
+        {
+            
+        }
 
         [HarmonyPatch(typeof(GHPC.Weapons.LiveRound), "Start")]
         public static class Airburst
