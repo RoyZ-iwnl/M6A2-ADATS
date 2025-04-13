@@ -745,7 +745,7 @@ namespace M6A2Adats
                     {
                         AmmoType.ArmorOptimization optimization_adats = new AmmoType.ArmorOptimization();
                         optimization_adats.Armor = s;
-                        optimization_adats.RhaRatio = 0.2f;
+                        optimization_adats.RhaRatio = 0.25f;
                         era_optimizations_adats.Add(optimization_adats);
                     }
 
