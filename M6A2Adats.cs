@@ -841,7 +841,7 @@ namespace M6A2Adats
                 ammo_ADATS.Tandem = true;
                 ammo_ADATS.SpallMultiplier = 1.5f;
                 ammo_ADATS.TurnSpeed = 2.5f;
-                ammo_ADATS.DetonateSpallCount = 300;
+                ammo_ADATS.DetonateSpallCount = 450;
                 ammo_ADATS.MaxSpallRha = 50;
                 ammo_ADATS.MinSpallRha = 3;
                 ammo_ADATS.MaximumRange = 10000;
