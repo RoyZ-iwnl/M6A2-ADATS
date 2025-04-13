@@ -49,6 +49,7 @@ namespace M6A2Adats
             StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(GetVics), GameStatePriority.Medium);
             M6A2_Adats.Init();
             ProxyFuzeADATS.Init();
+            ProxyFuzeMK310.Init();
         }
     }
 }

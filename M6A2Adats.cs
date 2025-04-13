@@ -72,11 +72,12 @@ namespace M6A2Adats
         static MelonPreferences_Entry<bool> useM919, useM920, adatsTandem, superOptics, betterDynamics, betterAI, compositeTurret, compositeHull, rotateAzimuth, stabilityControl, rippleFire;
         static MelonPreferences_Entry<string> gunType;
         static MelonPreferences_Entry<int> apCount, heCount;
-        public static MelonPreferences_Entry<float> proxyDistance;
+        public static MelonPreferences_Entry<float> proxyDistance_ADATS, proxyDistance_mk310;
+        public static MelonPreferences_Entry<bool> mk310Fuze;
 
         public static void Config(MelonPreferences_Category cfg)
         {
-            gunType = cfg.CreateEntry<string>("GunType", "GunType");
+            gunType = cfg.CreateEntry<string>("GunType", "M242");
             gunType.Description = "M242 (500 RPM), GAU12 (3600 RPM), XM813 (30mm)";
 
             useM919 = cfg.CreateEntry<bool>("M919", false);
@@ -86,14 +87,18 @@ namespace M6A2Adats
             useM920.Description = "Replaces APEX with MPAB (TD airburst)";
 
             apCount = cfg.CreateEntry<int>("APCount", 300);
-            apCount.Description = "Round type count, give at least 1 per type (max of 1500 for 25mm/400 for 30mm)";
+            apCount.Description = "Round type count, give at least 1 per type (max of 1500 for 25mm/600 for 30mm)";
             heCount = cfg.CreateEntry<int>("HECount", 1200);
 
             adatsTandem = cfg.CreateEntry<bool>("ADATSTandem", false);
             adatsTandem.Description = "Better ERA defeat for ADATS";
 
-            proxyDistance = cfg.CreateEntry<float>("ProxyDistance", 3);
-            proxyDistance.Description = "Trigger distance of ADATS proximity fuze (in meters).";
+            mk310Fuze = cfg.CreateEntry<bool>("GunProxyFuze", false);
+            mk310Fuze.Description = "Switch MK310 PABM-T fuze to proximity instead of time-delay.";
+
+            proxyDistance_ADATS = cfg.CreateEntry<float>("ADATSProxyDistance", 3f);
+            proxyDistance_ADATS.Description = "Trigger distance of ADATS or PABM proximity fuze (in meters)";
+            proxyDistance_mk310 = cfg.CreateEntry<float>("GunProxyDistance", 2.5f);
 
             rippleFire = cfg.CreateEntry<bool>("RippleFire", false);
             rippleFire.Description = "Fire and guide multiple ADATS at the same time";
@@ -344,7 +349,8 @@ namespace M6A2Adats
                 vic.gameObject.AddComponent<Util.AlreadyConvertedADATS>();
 
                 vic_go.AddComponent<ProxySwitchADATS>();
-                vic_go.AddComponent<RefineRangeKey>();
+                if (mk310Fuze.Value) vic_go.AddComponent<ProxySwitchMK310>();
+                //vic_go.AddComponent<RefineRangeKey>();
 
                 WeaponsManager weaponsManager = vic.GetComponent<WeaponsManager>();
                 WeaponSystemInfo mainGunInfo = weaponsManager.Weapons[0];
@@ -358,6 +364,7 @@ namespace M6A2Adats
                 FieldInfo fixParallaxField = typeof(FireControlSystem).GetField("_fixParallaxForVectorMode", BindingFlags.Instance | BindingFlags.NonPublic);
                 fixParallaxField.SetValue(mainGun.FCS, true);
                 mainGun.FCS.MaxLaserRange = 6000;
+
 
 
                 //USSR Vehicles/T80B/T80B_rig/HULL/TURRET/gun/---MAIN GUN SCRIPTS---/2A46-2/1G42 gunner's sight/
@@ -564,12 +571,18 @@ namespace M6A2Adats
                     daysightPlus.OtherFovs = new float[] { 8f, 5.5f, 4f, 2.5f, 1.25f, 0.5f };//2.5
                     daysightPlus.BaseBlur = 0;
                     daysightPlus.VibrationBlurScale = 0;
+                    daysightPlus.VibrationShakeMultiplier = 0.175f;//0.25
 
                     flirPlus.DefaultFov = 16.5f;//8
                     flirPlus.OtherFovs = new float[] { 8f, 5.5f, 4f, 2.5f, 1.25f, 0.5f };//2.5
                     flirPlus.BaseBlur = 0;
                     flirPlus.VibrationBlurScale = 0;
+                    flirPlus.VibrationShakeMultiplier = 0.175f;//0.25
+
+                    horizontalFlir.FovLimitedItems[0].FovRange = new Vector2 (0, 20);//0,5
                     GameObject.Destroy(flirOptic.transform.Find("Canvas Scanlines").gameObject);
+
+                    //horizontalFlir.FovLimitedItems = null;
 
                     MelonLogger.Msg("Super Optics Loaded");
                 }
@@ -657,25 +670,26 @@ namespace M6A2Adats
 
                 if (betterAI.Value)
                 {
-                    vicUAI.SpotTimeMaxDistance = 3500;
-                    vicUAI.TargetSensor._spotTimeMax = 3;
-                    vicUAI.TargetSensor._spotTimeMaxDistance = 500;
-                    vicUAI.TargetSensor._spotTimeMaxVelocity = 7f;
-                    vicUAI.TargetSensor._spotTimeMin = 1;
-                    vicUAI.TargetSensor._spotTimeMinDistance = 50;
+                    //AI is "35% better" in various spotting and shooting things
+                    vicUAI.SpotTimeMaxDistance *= 1.35f;
+                    vicUAI.TargetSensor._spotTimeMax *= 0.65f;
+                    vicUAI.TargetSensor._spotTimeMaxDistance *= 1.35f;
+                    vicUAI.TargetSensor._spotTimeMaxVelocity *= 7f;
+                    vicUAI.TargetSensor._spotTimeMin *= 0.65f;
+                    vicUAI.TargetSensor._spotTimeMinDistance *= 50;
                     //vicUAI.TargetSensor._targetCooldownTime = 1.5f;
 
-                    vicUAI.CommanderAI._identifyTargetDurationRange = new Vector2(1.5f, 2.5f);
-                    vicUAI.CommanderAI._sweepCommsCheckDuration = 4;
+                    vicUAI.CommanderAI._identifyTargetDurationRange *= new Vector2(0.65f, 0.65f);
+                    vicUAI.CommanderAI._sweepCommsCheckDuration *= 0.65f;
 
 
                     vicUAI.combatSpeedLimit = 25;
                     vicUAI.firingSpeedLimit = 20;
 
                     //m2Ai.AccuracyModifiers.Angle._radius = 2.4f;
-                    vicUAI.AccuracyModifiers.Angle.MaxDistance = 1500;
-                    vicUAI.AccuracyModifiers.Angle.MaxRadius = 5f;
-                    vicUAI.AccuracyModifiers.Angle.MinRadius = 2f;
+                    vicUAI.AccuracyModifiers.Angle.MaxDistance *= 1.35f;
+                    vicUAI.AccuracyModifiers.Angle.MaxRadius *= 0.65f;
+                    vicUAI.AccuracyModifiers.Angle.MinRadius *= 0.65f;
                     vicUAI.AccuracyModifiers.Angle.IncreaseAccuracyPerShot = false;
 
                     MelonLogger.Msg("Better AI loaded");
@@ -738,29 +752,32 @@ namespace M6A2Adats
                     if (era_optimizations_adats.Count == era_names.Length) break;
                 }
 
-                int apCapacity_25mm = apCount.Value;
-                int heCapacity_25mm = heCount.Value;
-                MelonLogger.Msg("Total 25mm AP/HE Count: " + (apCapacity_25mm + heCapacity_25mm));
-
-                if ((apCapacity_25mm + heCapacity_25mm) > 1500)
-                {
-                    apCapacity_25mm = 300;
-                    heCapacity_25mm = 1200;
-                    MelonLogger.Msg("Invalid total 25mm AP/HE amount, defaulting to 300 AP/1200 HE");
-                }
-
                 int apCapacity_30mm = apCount.Value;
                 int heCapacity_30mm = heCount.Value;
+                int apCapacity_25mm = apCount.Value;
+                int heCapacity_25mm = heCount.Value;
 
                 if (gunType.Value == "XM813")
                 {
                     MelonLogger.Msg("Total 30mm AP/HE Count: " + (apCapacity_30mm + heCapacity_30mm));
 
-                    if ((apCapacity_30mm + heCapacity_30mm) > 400)
+                    if ((apCapacity_30mm + heCapacity_30mm) > 600)
                     {
-                        apCapacity_30mm = 200;
-                        heCapacity_30mm = 200;
-                        MelonLogger.Msg("Invalid total 30mm AP/HE amount, defaulting to 200 AP/200 HE");
+                        apCapacity_30mm = 300;
+                        heCapacity_30mm = 300;
+                        MelonLogger.Msg("Invalid total 30mm AP/HE amount, defaulting to 300 AP/300 HE");
+                    }
+                }
+
+                else
+                {
+                    MelonLogger.Msg("Total 25mm AP/HE Count: " + (apCapacity_25mm + heCapacity_25mm));
+
+                    if ((apCapacity_25mm + heCapacity_25mm) > 1500)
+                    {
+                        apCapacity_25mm = 300;
+                        heCapacity_25mm = 1200;
+                        MelonLogger.Msg("Invalid total 25mm AP/HE amount, defaulting to 300 AP/1200 HE");
                     }
                 }
 
@@ -952,6 +969,7 @@ namespace M6A2Adats
                 ammo_mk310.MaxSpallRha = 32f;
                 ammo_mk310.MinSpallRha = 2f;
                 ammo_mk310.CertainRicochetAngle = 5;
+                if (mk310Fuze.Value) ProxyFuzeMK310.AddFuzeMK310(ammo_mk310);
 
                 ammo_codex_mk310 = ScriptableObject.CreateInstance<AmmoCodexScriptable>();
                 ammo_codex_mk310.AmmoType = ammo_mk310;
@@ -997,7 +1015,7 @@ namespace M6A2Adats
                     rangedFuseTimeActiveField_m920.SetValue(__instance, true);
                 }
 
-                if (__instance.Info.Name == "MK310 PABM-T")
+                if (!mk310Fuze.Value && __instance.Info.Name == "MK310 PABM-T")
                 {
 
                     FieldInfo rangedFuseTimeField_mk310 = typeof(GHPC.Weapons.LiveRound).GetField("_rangedFuseCountdown", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -1012,7 +1030,7 @@ namespace M6A2Adats
                     float extra_distance_mk310 = range_mk310 > 2000 ? 19f + 3.5f : 17f;
 
                     //funky math 
-                    rangedFuseTimeField_mk310.SetValue(__instance, bc_mk310.GetFlightTime(M6A2_Adats.ammo_mk310, range_mk310 + range_mk310 / M6A2_Adats.ammo_mk310.MuzzleVelocity * 2 + (range_mk310 + fallOff_mk310) / 2000f + extra_distance_mk310));
+                    rangedFuseTimeField_mk310.SetValue(__instance, bc_mk310.GetFlightTime(M6A2_Adats.ammo_mk310, range_mk310 + range_mk310 / M6A2_Adats.ammo_mk310.MuzzleVelocity * 2 + (range_mk310 + (fallOff_mk310 + 5)) / 2000f + extra_distance_mk310));
                     rangedFuseTimeActiveField_mk310.SetValue(__instance, true);
                 }
 

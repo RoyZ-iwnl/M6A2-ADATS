@@ -3,28 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BehaviorDesigner.Runtime.Tasks;
-using UnityEngine;
-using GHPC.Weapons;
-using HarmonyLib;
-using MelonLoader;
-using static MelonLoader.MelonLogger;
-using GHPC.Camera;
-using GHPC.Equipment.Optics;
 using GHPC.Player;
+using GHPC.Weapons;
+using UnityEngine;
+using M6A2Adats;
+using HarmonyLib;
 
 namespace M6A2Adats
 {
-    public class ProxySwitchADATS : MonoBehaviour
+    public class ProxySwitchMK310 : MonoBehaviour
     {
         public bool activated = false;
         private float cd = 0f;
         private WeaponSystem weapon = null;
         private PlayerInput player_manager;
-
         void Awake()
         {
-            weapon = GetComponent<WeaponsManager>().Weapons[1].Weapon;
+            weapon = GetComponent<WeaponsManager>().Weapons[0].Weapon;
             player_manager = GameObject.Find("_APP_GHPC_").GetComponent<PlayerInput>();
         }
 
@@ -34,18 +29,19 @@ namespace M6A2Adats
 
             if (player_manager.CurrentPlayerUnit.gameObject.GetInstanceID() != gameObject.GetInstanceID()) return;
 
-            M6A2_Adats.clip_ADATS.Name = activated ? "MIM-146 ADATS [Proximity]" : "MIM-146 ADATS";
+            M6A2_Adats.clip_mk310.Name = activated ? "MK310 PABM-T [Proximity]" : "MK310 PABM-T";
 
-            if (Input.GetKey(KeyCode.Mouse2) && cd <= 0f && weapon.CurrentAmmoType == M6A2_Adats.ammo_ADATS)
+            if (Input.GetKey(KeyCode.Mouse2) && cd <= 0f && weapon.CurrentAmmoType == M6A2_Adats.ammo_mk310)
             {
                 cd = 0.2f;
 
                 activated = !activated;
             }
         }
+
     }
 
-    public class ProxyFuzeADATS : MonoBehaviour
+    public class ProxyFuzeMK310 : MonoBehaviour
     {
         private GHPC.Weapons.LiveRound live_round;
         private static GameObject prox_fuse;
@@ -56,13 +52,13 @@ namespace M6A2Adats
         public static void Init()
         {
             if (prox_fuse) return;
-            prox_fuse = new GameObject("adats prox fuse");
+            prox_fuse = new GameObject("mk310 prox fuse");
             prox_fuse.layer = 8;
             prox_fuse.SetActive(false);
-            prox_fuse.AddComponent<ProxyFuzeADATS>();
+            prox_fuse.AddComponent<ProxyFuzeMK310>();
         }
 
-        public static void AddFuzeADATS(AmmoType ammo_type)
+        public static void AddFuzeMK310(AmmoType ammo_type)
         {
             if (prox_ammos.Contains(ammo_type.Name)) return;
             prox_ammos.Add(ammo_type.Name);
@@ -93,8 +89,8 @@ namespace M6A2Adats
                     Detonate();
 
             RaycastHit hit3;
-            if (Physics.SphereCast(pos, M6A2_Adats.proxyDistance_ADATS.Value, live_round.transform.forward, out hit3, 0.1f, 1 << 8))
-            if (hit3.collider.CompareTag("Penetrable"))
+            if (Physics.SphereCast(pos, M6A2_Adats.proxyDistance_mk310.Value, live_round.transform.forward, out hit3, 0.1f, 1 << 8))
+                if (hit3.collider.CompareTag("Penetrable"))
                     Detonate();
 
         }
@@ -104,15 +100,15 @@ namespace M6A2Adats
         {
             private static void Prefix(GHPC.Weapons.LiveRound __instance)
             {
-                if (prox_ammos.Contains(__instance.Info.Name) && __instance.gameObject.transform.Find("adats prox fuse(Clone)") == null)
+                if (prox_ammos.Contains(__instance.Info.Name) && __instance.gameObject.transform.Find("mk310 prox fuse(Clone)") == null)
                 {
                     GameObject p = GameObject.Instantiate(prox_fuse, __instance.transform);
-                    p.GetComponent<ProxyFuzeADATS>().live_round = __instance;
-                    p.SetActive(__instance.Shooter.gameObject.GetComponent<ProxySwitchADATS>().activated);
+                    p.GetComponent<ProxyFuzeMK310>().live_round = __instance;
+                    p.SetActive(__instance.Shooter.gameObject.GetComponent<ProxySwitchMK310>().activated);
                 }
-                else if (__instance.gameObject.transform.Find("adats prox fuse(Clone)"))
+                else if (__instance.gameObject.transform.Find("mk310 prox fuse(Clone)"))
                 {
-                    GameObject.DestroyImmediate(__instance.gameObject.transform.Find("adats prox fuse(Clone)").gameObject);
+                    GameObject.DestroyImmediate(__instance.gameObject.transform.Find("mk310 prox fuse(Clone)").gameObject);
                 }
             }
         }
