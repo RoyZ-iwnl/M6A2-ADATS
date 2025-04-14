@@ -5,6 +5,20 @@
 - Compatibility for GHPC Update 20250401.1
 - New XM813 30mm Chain Gun (includes MK258 APFSDS-T and MK310 PABM-T)
 - Tweaks to super optics setting (gun reticle remains when using thermals on lower zoom level and better reticle stability)
+- "BUSK" postfix when ERA is detected (NATO ERA v1.2.2+ required)
+
+  
+  ## Round types list:
+| Name  | Penetration (mm) | Fragment/Spalling Penetration (mm)| Muzzle Velocity (m/s) | Note |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+| M791 APDS-T | 60 |  | 1345  |  |
+| M919 APFSDS-T  | 102 |  | 1575 | +25% spalling chance and +66% spalling performance. |
+| M792 HEI-T | 8* |  | 1100 |  |
+| APEX APHE-T | 35* |  | 1270 | Point-detonate fuze only. |
+| M920 MPAB-T | 15* |  | 1270 | Hypothethical round. Point-detonate + airburst fuze.  |
+| MK258 APFSDS-T | 116 |  | 1430 | +50% spalling chance and +133% spalling performance. |
+| MK310 PABM-T | 30* | 32** | 1170 | Point-detonate + airburst fuze or proximity fuze. |
+| MIM-146 ADATS | 1000 | 50** | 510 | Point-detonate + proximity fuze. Optional tandem warhead config where it makes ERA only 25% effective. |
 
 
 ## How to use the XM310 PABM-T:
@@ -18,17 +32,6 @@
 - To use proximity mode, press middle mouse button and the round should have [Proximity] suffix to its name in the lower left part of the UI
 - To use point-detonate mode, make sure the [Proximity] suffix is not present
 
-  ## Round types list:
-| Name  | Penetration (mm) | Fragment/Spalling Penetration (mm)| Muzzle Velocity (m/s) | Note |
-| ------------- | ------------- | ------------- | ------------- | ------------- |
-| M791 APDS-T | 60 |  | 1345  |  |
-| M919 APFSDS-T  | 102 |  | 1575 | +25% spalling chance and +66% spalling performance. |
-| M792 HEI-T | 8* |  | 1100 |  |
-| APEX APHE-T | 35* |  | 1270 | Point-detonate fuze only. |
-| M920 MPAB-T | 15* |  | 1270 | Hypothethical round. Point-detonate + airburst fuze.  |
-| MK258 APFSDS-T | 116 |  | 1430 | +50% spalling chance and +133% spalling performance. |
-| MK310 PABM-T | 30* | 32** | 1170 | Point-detonate + airburst fuze or proximity fuze. |
-| MIM-146 ADATS | 1000 | 50** | 510 | Point-detonate + proximity fuze. Optional tandem warhead config where it makes ERA only 25% effective. |
 
 - *These are HE rounds so actual penetration may not be the same as the table
 - **These are <i>up to</i> values so not every fragment will perform the same
