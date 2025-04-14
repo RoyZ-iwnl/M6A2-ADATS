@@ -35,7 +35,6 @@
 - To use point-detonate mode, make sure the [Proximity] suffix is not present
 
 
-- 
 ## Mod Configuration (in UserData/MelonPreferences.cfg):
 - I suggest getting Notepad++ so it would be easier to identify each category
 - Rebuild the config file when upgrading to v1.3
@@ -54,6 +53,6 @@
 - Composite hull (false by default)
 - Composite turret (false by default)
 
-![ADATS MelonPreferences](https://github.com/Cyances/M6A2-ADATS/assets/154455050/cc844e91-b272-4593-99e4-68e2bd2895b4)
+![image](https://github.com/user-attachments/assets/7219ef5c-ee15-4692-9219-ae3471095991)
 
 Special thanks to Swiss (https://github.com/SovGrenadier) for allowing the forking of this mod and ATLAS (https://github.com/thebeninator) for assisting with some of the code.
