@@ -7,9 +7,27 @@ using System.Threading.Tasks;
 using GHPC.Weapons;
 using GHPC.Equipment.Optics;
 using UnityEngine;
+using GHPC.Player;
+using MelonLoader;
 
 namespace M6A2Adats
 {
+    public class RefineRangeKey : MonoBehaviour
+    {
+        private PlayerInput player_manager;
+
+        void Update()
+        {
+
+            if (player_manager.CurrentPlayerUnit.gameObject.GetInstanceID() != gameObject.GetInstanceID()) return;
+
+
+            if (Input.GetKey(KeyCode.Mouse2))
+            {
+                MelonLogger.Msg("Util MMOUSE pressed");
+            }
+        }
+    }
     public class Util
     {
         public class AlreadyConvertedADATS : MonoBehaviour { }
@@ -45,6 +63,7 @@ namespace M6A2Adats
             }
 
         }
+
         public static void EmptyRack(GHPC.Weapons.AmmoRack rack)
         {
             MethodInfo removeVis = typeof(GHPC.Weapons.AmmoRack).GetMethod("RemoveAmmoVisualFromSlot", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -65,4 +84,7 @@ namespace M6A2Adats
             }
         }
     }
+
+
+
 }

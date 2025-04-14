@@ -13,7 +13,7 @@ using MelonLoader;
 using NWH.VehiclePhysics;
 using UnityEngine;
 
-[assembly: MelonInfo(typeof(AdatsMod), "Z M6A2", "1.2.0", "Cyance and Schweiz")]
+[assembly: MelonInfo(typeof(AdatsMod), "Z M6A2", "1.3.0", "Cyance and Schweiz")]
 [assembly: MelonGame("Radian Simulations LLC", "GHPC")]
 
 namespace M6A2Adats
@@ -49,6 +49,7 @@ namespace M6A2Adats
             StateController.RunOrDefer(GameState.GameReady, new GameStateEventHandler(GetVics), GameStatePriority.Medium);
             M6A2_Adats.Init();
             ProxyFuzeADATS.Init();
+            ProxyFuzeMK310.Init();
         }
     }
 }

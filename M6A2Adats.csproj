@@ -48,6 +48,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Runtime" />
     <Reference Include="Unity.Postprocessing.Runtime">
       <HintPath>D:\Program Files\SteamLibrary\steamapps\common\Gunner HEAT PC\Bin\GHPC_Data\Managed\Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
@@ -110,6 +111,7 @@
     <Compile Include="M6A2Adats.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="ProxyFuzeADATS.cs" />
+    <Compile Include="ProxyFuzeMK310.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
