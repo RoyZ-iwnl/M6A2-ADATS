@@ -20,6 +20,8 @@
 | MK310 PABM-T | 30* | 32** | 1170 | Point-detonate + airburst fuze or proximity fuze. |
 | MIM-146 ADATS | 1000 | 50** | 510 | Point-detonate + proximity fuze. Optional tandem warhead config where it makes ERA only 25% effective. |
 
+- *These are HE rounds so actual penetration may not be the same as the table
+- **These are <i>up to</i> values so not every fragment will perform the same
 
 ## How to use the XM310 PABM-T:
 ### PABM Point-detonate + Time-delay Fuze
@@ -33,8 +35,6 @@
 - To use point-detonate mode, make sure the [Proximity] suffix is not present
 
 
-- *These are HE rounds so actual penetration may not be the same as the table
-- **These are <i>up to</i> values so not every fragment will perform the same
 - 
 ## Mod Configuration (in UserData/MelonPreferences.cfg):
 - I suggest getting Notepad++ so it would be easier to identify each category
