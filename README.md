@@ -14,8 +14,8 @@
 | M791 APDS-T | 60 |  | 1345  |  |
 | M919 APFSDS-T  | 102 |  | 1575 | +25% spalling chance and +66% spalling performance. |
 | M792 HEI-T | 8* |  | 1100 |  |
-| APEX APHE-T | 35* |  | 1270 | Point-detonate fuze only. |
-| M920 MPAB-T | 15* |  | 1270 | Hypothethical round. Point-detonate + airburst fuze.  |
+| APEX APHE-T | 35* | 16** | 1270 | Point-detonate fuze only. |
+| M920 MPAB-T | 15* | 32** | 1270 | Hypothethical round. Point-detonate + airburst fuze.  |
 | MK258 APFSDS-T | 116 |  | 1430 | +50% spalling chance and +133% spalling performance. |
 | MK310 PABM-T | 30* | 32** | 1170 | Point-detonate + airburst fuze or proximity fuze. |
 | MIM-146 ADATS | 1000 | 50** | 510 | Point-detonate + proximity fuze. Optional tandem warhead config where it makes ERA only 25% effective. |
