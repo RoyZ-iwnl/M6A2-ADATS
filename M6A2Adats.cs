@@ -557,8 +557,6 @@ namespace M6A2Adats
                 CameraSlot daysightPlus = gpsOptic.GetComponent<CameraSlot>();
                 CameraSlot flirPlus = flirOptic.GetComponent<CameraSlot>();
 
-
-
                 if (rotateAzimuth.Value)
                 {
                     horizontalGps.RotateAzimuth = true;
@@ -575,12 +573,18 @@ namespace M6A2Adats
 
                     flirPlus.DefaultFov = 16.5f;//8
                     flirPlus.OtherFovs = new float[] { 8f, 5.5f, 4f, 2.5f, 1.25f, 0.5f };//2.5
-                    flirPlus.BaseBlur = 0;
-                    flirPlus.VibrationBlurScale = 0;
+                    //flirPlus.BaseBlur = 0;These two no longer used?
+                    //flirPlus.VibrationBlurScale = 0;
                     flirPlus.VibrationShakeMultiplier = 0.175f;//0.25
 
-                    horizontalFlir.FovLimitedItems[0].FovRange = new Vector2 (0, 20);//0,5
-                    GameObject.Destroy(flirOptic.transform.Find("Canvas Scanlines").gameObject);
+                    //Arbitrary 3x resolution improvement
+                    flirPlus.FLIRFilterMode = FilterMode.Trilinear;
+                    flirPlus.FLIRHeight = 360;//120
+                    flirPlus.FLIRWidth = 720;//240
+
+                    horizontalFlir.FovLimitedItems[0].FovRange = new Vector2(0, 20);//0,5
+
+                    //GameObject.Destroy(flirOptic.transform.Find("Canvas Scanlines").gameObject);
 
                     //horizontalFlir.FovLimitedItems = null;
 
