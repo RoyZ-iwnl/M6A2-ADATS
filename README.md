@@ -1,4 +1,4 @@
-# M6A2 ADATS v1.3.1
+# M6A2 ADATS v1.3.2
 
 This mod replaces the M2 Bradley with the M6 Linebacker but pretend it has the GAU-12 (and others) and ADATS instead!
 
