@@ -1,8 +1,8 @@
-# M6A2 ADATS v1.3.1
+# M6A2 ADATS v1.3.2
 
 ## Branch release notes:
 
-- Compatibility for GHPC Update ~~20250401.1~~ 20256030
+- Compatibility for GHPC Update ~~20250401.1~~ ~~20256030~~ 20250902
 - New XM813 30mm Chain Gun (includes MK258 APFSDS-T and MK310 PABM-T)
 - Tweaks to super optics setting (gun reticle remains when using thermals on lower zoom level and better reticle stability, arbitrary 3x improvement in FLIR resolution)
 - "BUSK" postfix when ERA is detected (NATO ERA v1.2.2+ required)
