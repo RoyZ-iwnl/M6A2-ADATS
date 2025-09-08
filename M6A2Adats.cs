@@ -599,7 +599,8 @@ namespace M6A2Adats
 
                 if (betterDynamics.Value)
                 {
-                    vicDAIC.maxSpeed = 32;//20
+                    //No longer needed after 20250902?
+                    //vicDAIC.maxSpeed = 32;//20
 
                     vicVC.engine.maxPower = 1200f;//530;
                     vicVC.engine.maxRPM = 4500f;//4000 ;
