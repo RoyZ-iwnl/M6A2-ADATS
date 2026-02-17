@@ -399,7 +399,7 @@ namespace M6A2Adats
                         mainGun.SetCycleTime(0.12f); //3600 vs 500 RPM
                         mainGun.Feed._totalCycleTime = 0.12f;//3600 vs 500 RPM
 
-                        loadoutManager.LoadedAmmoTypes = new AmmoClipCodexScriptable[] { useM919.Value ? clip_codex_M919 : clip_codex_M791m6, useM920.Value ? clip_codex_M920 : clip_codex_APEX };
+                        loadoutManager.LoadedAmmoList.AmmoClips = new AmmoClipCodexScriptable[] { useM919.Value ? clip_codex_M919 : clip_codex_M791m6, useM920.Value ? clip_codex_M920 : clip_codex_APEX };
 
                         for (int i = 0; i <= 1; i++)
                         {
@@ -417,7 +417,7 @@ namespace M6A2Adats
                         mainGun.SetCycleTime(0.0166f);
                         mainGun.Feed._totalCycleTime = 0.0166f;//3600 vs 500 RPM
 
-                        loadoutManager.LoadedAmmoTypes = new AmmoClipCodexScriptable[] { useM919.Value ? clip_codex_M919 : clip_codex_M791m6, useM920.Value ? clip_codex_M920 : clip_codex_APEX };
+                        loadoutManager.LoadedAmmoList.AmmoClips = new AmmoClipCodexScriptable[] { useM919.Value ? clip_codex_M919 : clip_codex_M791m6, useM920.Value ? clip_codex_M920 : clip_codex_APEX };
 
                         for (int i = 0; i <= 1; i++)
                         {
@@ -484,7 +484,7 @@ namespace M6A2Adats
                         muzzleFlashes.GetChild(13).transform.localScale = new Vector3(2f, 2f, 2f);
 
 
-                        loadoutManager.LoadedAmmoTypes = new AmmoClipCodexScriptable[] { clip_codex_mk258, clip_codex_mk310 };
+                        loadoutManager.LoadedAmmoList.AmmoClips = new AmmoClipCodexScriptable[] { clip_codex_mk258, clip_codex_mk310 };
 
                         for (int i = 0; i <= 1; i++)
                         {
@@ -501,7 +501,7 @@ namespace M6A2Adats
                         mainGun.SetCycleTime(0.12f); //3600 vs 500 RPM
                         mainGun.Feed._totalCycleTime = 0.12f;//3600 vs 500 RPM
 
-                        loadoutManager.LoadedAmmoTypes = new AmmoClipCodexScriptable[] { useM919.Value ? clip_codex_M919 : clip_codex_M791m6, useM920.Value ? clip_codex_M920 : clip_codex_APEX };
+                        loadoutManager.LoadedAmmoList.AmmoClips = new AmmoClipCodexScriptable[] { useM919.Value ? clip_codex_M919 : clip_codex_M791m6, useM920.Value ? clip_codex_M920 : clip_codex_APEX };
 
                         for (int i = 0; i <= 1; i++)
                         {
