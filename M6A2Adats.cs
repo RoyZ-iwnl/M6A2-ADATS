@@ -11,6 +11,7 @@ using GHPC.Equipment.Optics;
 using GHPC.Player;
 using GHPC.Vehicle;
 using GHPC.Weapons;
+using GHPC.Weaponry;
 using MelonLoader;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
